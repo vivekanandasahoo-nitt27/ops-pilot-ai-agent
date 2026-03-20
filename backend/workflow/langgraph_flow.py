@@ -5,7 +5,7 @@ from agents.ingestion_agent import ingestion_agent
 from agents.classifier_agent import classifier_agent
 
 from agents.action_agent import action_agent
-from agents.human_agent import human_review
+from agents.human_agent import human_agent
 from agents.report_agent import report_agent
 from agents.reply_agent import reply_agent
 from agents.decision_agent import decision_agent
@@ -51,7 +51,7 @@ workflow.add_node("ingestion", ingestion_agent)
 workflow.add_node("classification", classifier_agent)
 workflow.add_node("decision", decision_agent)
 workflow.add_node("action", action_agent)
-workflow.add_node("human_review", human_review)
+workflow.add_node("human_review", human_agent)
 workflow.add_node("report", report_agent)
 workflow.add_node("reply", reply_agent)
 

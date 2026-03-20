@@ -117,5 +117,19 @@
     "decision": "HUMAN_REQUIRED",
     "action": "Human approved and smart email sent",
     "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 09:08:44.959991",
+    "message": "\nSubject: Meeting\nBody: Meeting with client aman at 11 30 am in class\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 09:09:11.033186",
+    "message": "\nSubject: Meeting\nBody: Meeting with client aman at 11 30 am in class\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
   }
 ]

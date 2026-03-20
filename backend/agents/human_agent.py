@@ -1,12 +1,13 @@
-def human_review(state: dict):
+def human_agent(state: dict):
 
-    print("\n🚨 HUMAN REVIEW REQUIRED")
-    print("Message:", state["incident_text"])
+    if state.get("decision") == "HUMAN_REQUIRED":
 
-    approval = input("Approve action? (yes/no): ").strip().lower()
+        print("\n🚨 HUMAN REVIEW REQUIRED")
+        print("Message:", state.get("incident_text"))
 
-    state["human_approval"] = approval
+        # ❌ NO input() here anymore
+        # just pass state forward
 
-    print("Captured approval:", approval)  # debug
+        state["human_needed"] = True
 
     return state
