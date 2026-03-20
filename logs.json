@@ -1,0 +1,65 @@
+[
+  {
+    "timestamp": "2026-03-20 00:01:03.392970",
+    "message": "Hi bro I am vivek",
+    "decision": "AUTO_REPLY",
+    "action": "Auto email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 00:03:42.001713",
+    "message": "Meeting",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 00:04:27.480396",
+    "message": "Payment due",
+    "decision": "ALERT",
+    "action": "Slack alert sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 00:29:37.189837",
+    "message": "Meeting",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 00:39:39.691666",
+    "message": "A full year of career growth: Save with a Udemy Personal Plan annual\r\n subscription",
+    "decision": "AUTO_REPLY",
+    "action": "Auto email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 06:56:12.726379",
+    "message": "Meeting with client",
+    "decision": "AUTO_REPLY",
+    "action": "Auto email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 06:59:06.442245",
+    "message": "Meeting with client",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 07:04:41.594613",
+    "message": "Payment",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 07:22:48.270104",
+    "message": "Payment due",
+    "decision": "ALERT",
+    "action": "Slack alert sent",
+    "system": "email-system"
+  }
+]
