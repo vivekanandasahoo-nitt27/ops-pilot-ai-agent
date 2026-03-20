@@ -13,6 +13,8 @@ if email_data:
 
     state = {
         "alert": email_data["subject"],
+        "body": email_data.get("body", ""), 
+        
         "incident_text": full_text,   # 🔥 FULL EMAIL
         "system": "email-system",
         "sender_email": email_data["sender"]

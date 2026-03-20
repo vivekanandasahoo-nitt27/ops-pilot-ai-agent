@@ -13,6 +13,7 @@ from agents.decision_agent import decision_agent
 class IncidentState(TypedDict, total=False):
     alert: str
     system: str
+    body: str
     incident_text: str
     source_system: str
     incident_type: str

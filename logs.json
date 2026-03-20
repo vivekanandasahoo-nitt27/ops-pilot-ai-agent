@@ -61,5 +61,61 @@
     "decision": "ALERT",
     "action": "Slack alert sent",
     "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 07:58:28.111995",
+    "message": "Meeting",
+    "decision": "ALERT",
+    "action": "Slack alert + email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:00:58.874921",
+    "message": "Meeting",
+    "decision": "ALERT",
+    "action": "Slack alert + email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:06:52.700240",
+    "message": "Skip the Setup. Start with these Builds",
+    "decision": "AUTO_REPLY",
+    "action": "Auto email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:07:32.433825",
+    "message": "Meeting",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:14:48.535779",
+    "message": "Meeting",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:24:54.426370",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in class\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:28:43.090145",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in class\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-20 08:46:58.426263",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in class\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
   }
 ]

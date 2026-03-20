@@ -1,6 +1,7 @@
 from integrations.slack import send_slack_alert
 from integrations.email_sender import send_email
 from utils.logger import log_event
+from agents.reply_agent import reply_agent
 def action_agent(state: dict):
 
     print("\n🚀 Executing response actions")
@@ -25,10 +26,21 @@ def action_agent(state: dict):
     elif decision == "ALERT":
 
         print("🚨 Sending Slack alert")
-
         send_slack_alert(state)
 
-        state["action_taken"] = "Slack alert sent"
+        # 🔥 ALSO send smart email reply
+        if state.get("sender_email"):
+
+            print("📧 Sending alert acknowledgment email")
+
+            send_email(
+                to_email=state.get("sender_email"),
+                subject="Re: " + state.get("alert", ""),
+                body=state.get("auto_reply", 
+                    "Your request has been received and is under review by our team.")
+            )
+
+        state["action_taken"] = "Slack alert + email reply sent"
 
     # 🟡 HUMAN REQUIRED
     elif decision == "HUMAN_REQUIRED":
@@ -38,10 +50,13 @@ def action_agent(state: dict):
         if approval == "yes":
             print("✅ Human approved action")
 
+            # 🔥 Generate smart reply FIRST
+            state = reply_agent(state)
+
             send_email(
                 to_email=state.get("sender_email"),
-                subject="Re: Your Message",
-                body=state.get("auto_reply", "Approved. Proceeding.")
+                subject="Re: " + state.get("alert", ""),
+                body=state.get("auto_reply", "Approved, proceeding.")
             )
 
             state["action_taken"] = "Human approved and smart email sent"
@@ -49,8 +64,7 @@ def action_agent(state: dict):
         else:
             print("❌ Human rejected action")
             state["action_taken"] = "Action rejected by human"
-    else:
-        print("⚠️ Unknown decision")
-        state["action_taken"] = "No action taken"
+        
+        
     log_event(state)
     return state

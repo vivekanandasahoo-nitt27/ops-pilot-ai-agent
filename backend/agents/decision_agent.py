@@ -6,36 +6,49 @@ load_dotenv()
 
 client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 
+
 def decision_agent(state: dict):
 
-    text = state.get("incident_text", "")
+    text = state.get("incident_text", "").lower()
 
+    # 🔴 RULE 1: PAYMENT → ALWAYS ALERT
+    if any(word in text for word in ["payment", "amount", "rs", "rupees", "money", "invoice"]):
+        print("⚠️ Rule-based override: ALERT")
+        state["decision"] = "ALERT"
+        return state
+
+    # 🟡 RULE 2: MEETING → ALWAYS HUMAN_REQUIRED
+    if any(word in text for word in ["meeting", "call", "schedule", "appointment"]):
+        print("⚠️ Rule-based override: HUMAN_REQUIRED")
+        state["decision"] = "HUMAN_REQUIRED"
+        return state
+
+    # 🧠 FALLBACK → LLM
     prompt = f"""
-    You are an enterprise AI risk detection system.
+    You are an enterprise AI decision system.
 
-    Analyze this email:
+    Analyze this message:
 
-    {state.get("incident_text")}
+    {text}
 
-    STRICT RULES:
+    RULES:
 
-    🔴 ALERT (High Risk):
-    - Any payment, money, transaction, amount
-    - Pending payment, invoices, financial requests
-    - Fraud, security, unauthorized activity
+    🔴 ALERT:
+    - Payment, money, financial transactions
+    - Security threats
 
     🟡 HUMAN_REQUIRED:
-    - Meetings, scheduling, approvals
+    - Meetings, calls, scheduling
     - Requests needing human confirmation
 
     🟢 AUTO_REPLY:
-    - Greetings, casual messages
+    - Greetings, casual chat
 
-    IMPORTANT:
-    - If ANY money/amount/payment is mentioned → ALWAYS ALERT
-    - Even small amount → ALERT
+    STRICT:
+    - Meetings are NOT alerts
+    - Only financial/security = ALERT
 
-    Return ONLY one word:
+    Return ONLY:
     AUTO_REPLY
     HUMAN_REQUIRED
     ALERT
