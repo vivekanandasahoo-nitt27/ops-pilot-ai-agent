@@ -101,12 +101,19 @@ def format_result(state):
 # ==============================
 # 📜 LOAD LOGS (POINTWISE)
 # ==============================
+import json
+import os
+
 def load_logs():
 
+    base_path = os.path.dirname(os.path.dirname(__file__))
+    log_path = os.path.join(base_path, "logs.json")
+
     try:
-        logs = requests.get("http://127.0.0.1:8000/logs").json()
-    except:
-        return "No logs found"
+        with open(log_path, "r") as f:
+            logs = json.load(f)
+    except Exception as e:
+        return f"No logs found: {str(e)}"
 
     formatted = ""
 
@@ -120,7 +127,6 @@ def load_logs():
 """
 
     return formatted
-
 
 # ==============================
 # 🎨 UI (CLEAN + STRUCTURED)

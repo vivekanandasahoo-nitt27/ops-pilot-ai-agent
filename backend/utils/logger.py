@@ -1,7 +1,9 @@
 import json
+import os
 from datetime import datetime
 
-LOG_FILE = "logs.json"
+BASE_DIR = os.path.dirname(os.path.dirname(__file__))
+LOG_FILE = os.path.join(BASE_DIR, "logs.json")
 
 def log_event(state):
 
