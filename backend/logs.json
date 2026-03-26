@@ -5,5 +5,19 @@
     "decision": "AUTO_REPLY",
     "action": "Auto email reply sent",
     "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-26 22:12:22.133471",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client ashok at 11 30 am in office please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-26 23:07:39.706802",
+    "message": "\nSubject: Meeting\nBody: Meeting with client aman at 11 30 am in office please be on the time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
   }
 ]

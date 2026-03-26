@@ -6,6 +6,9 @@ from workflow.langgraph_flow import graph
 from agents.reply_agent import reply_agent
 from agents.action_agent import action_agent
 
+import requests
+import webbrowser
+
 # 🔁 Global state
 current_state = {}
 
@@ -17,6 +20,24 @@ def fetch_email():
 
     global current_state
 
+    # 🔐 Get Auth0 Token
+    try:
+        res = requests.get("http://localhost:5000/get-token")
+        token = res.json().get("token")
+    except:
+        token = None
+
+    print("DEBUG TOKEN:", token)  # 👈 ADD THIS
+
+    if not token:
+        return "❌ Please login first", "", "", "", ""
+
+    # ✅ IMPORTANT: DO NOT overwrite state
+    state = {}
+
+    # 🔥 ADD TOKEN INTO STATE
+    state["auth_token"] = token
+
     email = read_latest_email()
 
     if not email:
@@ -25,13 +46,13 @@ def fetch_email():
     full_text = f"""Subject: {email['subject']}
 Body: {email.get('body', '')}"""
 
-    state = {
-        "alert": email["subject"],
-        "body": email.get("body", ""),
-        "incident_text": full_text,
-        "system": "email-system",
-        "sender_email": email["sender"]
-    }
+    state.update({
+    "alert": email["subject"],
+    "body": email.get("body", ""),
+    "incident_text": full_text,
+    "system": "email-system",
+    "sender_email": email["sender"]
+    })
 
     # Run graph (NO human input here)
     state = graph.invoke(state)
@@ -128,6 +149,13 @@ def load_logs():
 
     return formatted
 
+
+
+
+def open_login():
+    webbrowser.open("http://localhost:5000/login")
+    return "🔐 Opening Auth0 login..."
+
 # ==============================
 # 🎨 UI (CLEAN + STRUCTURED)
 # ==============================
@@ -139,6 +167,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # 📧 EMAIL SECTION
     # ------------------------------
     gr.Markdown("## 📧 Email Analysis")
+    login_btn = gr.Button("🔐 Login with Auth0")
 
     fetch_btn = gr.Button("Fetch & Analyze Email")
 
@@ -185,6 +214,7 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     reject_btn.click(lambda: human_action("reject"), outputs=result_box)
 
     log_btn.click(load_logs, outputs=log_box)
+    login_btn.click(fn=open_login, outputs=result_box)
 
 
 # ==============================

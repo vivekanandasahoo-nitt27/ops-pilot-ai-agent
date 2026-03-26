@@ -24,6 +24,7 @@ class IncidentState(TypedDict, total=False):
     sender_email: Optional[str]
     action_taken: Optional[str]
     human_approval: Optional[str]
+    auth_token: Optional[str]   
     
    
    

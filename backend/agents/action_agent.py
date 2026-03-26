@@ -3,6 +3,12 @@ from integrations.email_sender import send_email
 from utils.logger import log_event
 from agents.reply_agent import reply_agent
 def action_agent(state: dict):
+    token = state.get("auth_token")
+
+    if not token:
+        state["action_taken"] = "❌ Not authenticated"
+        return state
+    print(f"🔐 Using token: {token[:10]}...")
 
     print("\n🚀 Executing response actions")
 
