@@ -73,7 +73,7 @@ Body: {email.get('body', '')}"""
 # ==============================
 # 👤 HUMAN ACTION
 # ==============================
-def human_action(action):
+def human_action(action, human_text):
 
     global current_state
 
@@ -81,6 +81,7 @@ def human_action(action):
         return "No email analyzed"
 
     current_state["human_approval"] = "yes" if action == "approve" else "no"
+    current_state["human_input"] = human_text 
 
     # ❌ Reject
     if action == "reject":
@@ -180,7 +181,11 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # ------------------------------
     gr.Markdown("## 👤 Human Review")
 
-    human_msg_box = gr.Textbox(label="Human Review Required", lines=4)
+    human_input_box = gr.Textbox(
+    label="Additional Instructions (optional)",
+    placeholder="e.g. tell him I will be late",
+    interactive=True 
+    )
 
     with gr.Row():
         approve_btn = gr.Button("✅ Approve")
@@ -207,11 +212,19 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
 
     fetch_btn.click(
         fetch_email,
-        outputs=[email_box, decision_box, type_box, human_msg_box, result_box]
+        outputs=[email_box, decision_box, type_box, human_input_box, result_box]
     )
 
-    approve_btn.click(lambda: human_action("approve"), outputs=result_box)
-    reject_btn.click(lambda: human_action("reject"), outputs=result_box)
+    approve_btn.click(
+    fn=human_action,
+    inputs=[gr.State("approve"), human_input_box],
+    outputs=result_box
+    )
+    reject_btn.click(
+    fn=human_action,
+    inputs=[gr.State("reject"), human_input_box],
+    outputs=result_box
+    )
 
     log_btn.click(load_logs, outputs=log_box)
     login_btn.click(fn=open_login, outputs=result_box)

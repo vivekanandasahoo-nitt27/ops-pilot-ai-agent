@@ -11,6 +11,7 @@ client = Groq(api_key=os.getenv("GROQ_API_KEY"))
 def reply_agent(state: dict):
 
     incident_text = state.get("incident_text", "")
+    human_input = state.get("human_input", "")
 
     # 🔥 STEP 1: Extract structured info
     extraction_prompt = f"""
@@ -18,6 +19,9 @@ Extract important details from this email.
 
 Email:
 {incident_text}
+
+Additional Human Instruction:
+{human_input}
 
 STRICT RULES:
 - Return ONLY valid JSON
@@ -61,6 +65,10 @@ You are a smart email assistant.
 Email:
 {incident_text}
 
+Additional Human Instruction:
+{human_input}
+
+
 Extracted Data:
 Type: {extracted_data.get("type")}
 Time: {extracted_data.get("time")}
@@ -69,7 +77,8 @@ Person: {extracted_data.get("person")}
 Instructions:
 - If meeting → confirm time and person clearly
 - If casual → friendly short reply
-- Keep it natural and short (1–2 lines)
+- Keep it natural and human tone  and short (1–2 lines)
+- please include the human input in the reply all the details and information given be the human
 - DO NOT give generic replies like "Thanks, let's proceed"
 
 Examples:

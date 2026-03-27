@@ -19,5 +19,61 @@
     "decision": "HUMAN_REQUIRED",
     "action": "Action rejected by human",
     "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 12:24:19.464075",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 12:24:50.558899",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 14:43:29.959892",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office, please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 14:44:11.378876",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office, please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 14:50:33.561146",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 14:51:43.640565",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 15:50:07.342280",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 15:51:28.459195",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in office please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
   }
 ]

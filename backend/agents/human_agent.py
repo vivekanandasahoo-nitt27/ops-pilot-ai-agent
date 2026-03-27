@@ -5,9 +5,9 @@ def human_agent(state: dict):
         print("\n🚨 HUMAN REVIEW REQUIRED")
         print("Message:", state.get("incident_text"))
 
-        # ❌ NO input() here anymore
-        # just pass state forward
-
+        
         state["human_needed"] = True
+        state["human_approval"] = ""
+        state["human_input"] = ""
 
     return state
