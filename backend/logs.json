@@ -75,5 +75,33 @@
     "decision": "HUMAN_REQUIRED",
     "action": "Human approved and smart email sent",
     "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 18:05:24.620555",
+    "message": "\nSubject: Meeting\nBody: Meeting with client aman at 11 30 am in office please be on time every one\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 18:11:25.202441",
+    "message": "\nSubject: Meeting\nBody: Meeting with client aman at 11 30 am in office please be on time every one\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 18:28:35.126456",
+    "message": "\nSubject: Payment due\nBody: Payment due to the merchant , rs 2000 from last month , do it as soon\r\npossible\n",
+    "decision": "ALERT",
+    "action": "Slack alert + email reply sent",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 18:29:34.658129",
+    "message": "\nSubject: Payment due\nBody: Payment due to the merchant , rs 2000 from last month , do it as soon\r\npossible\n",
+    "decision": "ALERT",
+    "action": "Slack alert + email reply sent",
+    "system": "email-system"
   }
 ]

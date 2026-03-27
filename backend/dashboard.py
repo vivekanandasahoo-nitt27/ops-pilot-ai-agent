@@ -5,13 +5,23 @@ from integrations.email_reader import read_latest_email
 from workflow.langgraph_flow import graph
 from agents.reply_agent import reply_agent
 from agents.action_agent import action_agent
-
+from agents.voice_of_the_doctor import text_to_speech_with_elevenlabs
+from agents.voice_of_the_patient import transcribe_with_groq
 import requests
 import webbrowser
 
 # 🔁 Global state
 current_state = {}
 
+
+
+#the voice input 
+def process_voice(audio_path):
+    if audio_path:
+        text = transcribe_with_groq(audio_path)
+        print("🎤 Transcribed:", text)
+        return text   # 👈 goes to textbox
+    return ""
 
 # ==============================
 # 📧 FETCH + ANALYZE EMAIL
@@ -30,7 +40,7 @@ def fetch_email():
     print("DEBUG TOKEN:", token)  # 👈 ADD THIS
 
     if not token:
-        return "❌ Please login first", "", "", "", ""
+        return "❌ Please login first", "", "", "", "",None 
 
     # ✅ IMPORTANT: DO NOT overwrite state
     state = {}
@@ -41,7 +51,7 @@ def fetch_email():
     email = read_latest_email()
 
     if not email:
-        return "No new email", "", "", "", ""
+        return "No new email", "", "", "", "",None 
 
     full_text = f"""Subject: {email['subject']}
 Body: {email.get('body', '')}"""
@@ -66,8 +76,27 @@ Body: {email.get('body', '')}"""
     human_msg = ""
     if state.get("human_review"):
         human_msg = f"🚨 HUMAN REVIEW REQUIRED\n\n{full_text}"
+        
+    #speech output
+    # 🔊 AI SPEECH (ONLY EMAIL + DECISION)
+    speech_text = f"""
+    New email received.
 
-    return full_text, decision, incident_type, human_msg, ""
+    Subject: {state.get("alert")}
+
+    Body: {state.get("body")}
+
+    Decision: {state.get("decision")}
+
+    Incident Type: {state.get("incident_type")}
+
+    Please review and provide instructions if needed.
+    Then approve or reject.
+    """
+
+    audio_path = text_to_speech_with_elevenlabs(speech_text)
+
+    return full_text, decision, incident_type, human_msg, "",audio_path  
 
 
 # ==============================
@@ -175,17 +204,25 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     email_box = gr.Textbox(label="Email Content", lines=5)
     decision_box = gr.Textbox(label="Decision")
     type_box = gr.Textbox(label="Incident Type")
+    # 🔊 OUTPUT (AI speaks email)
+    voice_output = gr.Audio(label="🔊 AI Reading Email", autoplay=True)
 
     # ------------------------------
     # 👤 HUMAN SECTION
     # ------------------------------
     gr.Markdown("## 👤 Human Review")
+    with gr.Row():
+        voice_input = gr.Audio(
+        sources=["microphone"],
+        type="filepath",
+        label="🎤 Speak Additional Instructions"
+        )
 
-    human_input_box = gr.Textbox(
-    label="Additional Instructions (optional)",
-    placeholder="e.g. tell him I will be late",
-    interactive=True 
-    )
+        human_input_box = gr.Textbox(
+        label="Additional Instructions (optional)",
+        placeholder="e.g. tell him I will be late",
+        interactive=True 
+        )
 
     with gr.Row():
         approve_btn = gr.Button("✅ Approve")
@@ -209,10 +246,16 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # ------------------------------
     # 🔗 CONNECTIONS
     # ------------------------------
+    
+    voice_input.change(
+    fn=process_voice,
+    inputs=voice_input,
+    outputs=human_input_box
+    )
 
     fetch_btn.click(
         fetch_email,
-        outputs=[email_box, decision_box, type_box, human_input_box, result_box]
+        outputs=[email_box, decision_box, type_box, human_input_box, result_box,voice_output]
     )
 
     approve_btn.click(
