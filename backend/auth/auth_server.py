@@ -14,7 +14,7 @@ AUTH0_DOMAIN = os.getenv("AUTH0_DOMAIN")
 CLIENT_ID = os.getenv("AUTH0_CLIENT_ID")
 CLIENT_SECRET = os.getenv("AUTH0_CLIENT_SECRET")
 
-REDIRECT_URI = "http://localhost:5000/callback"
+REDIRECT_URI = "http://127.0.0.1:5000/callback"
 
 
 # 🔐 Login Route

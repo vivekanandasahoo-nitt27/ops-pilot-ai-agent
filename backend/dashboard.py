@@ -10,6 +10,38 @@ from agents.voice_of_the_patient import transcribe_with_groq
 import requests
 import webbrowser
 
+
+
+
+custom_css = """
+body {
+    background: linear-gradient(135deg, #0f172a, #020617);
+}
+
+.gr-box {
+    border-radius: 16px !important;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4) !important;
+}
+
+.gr-button {
+    border-radius: 12px !important;
+    font-weight: 600 !important;
+}
+
+.gr-textbox textarea {
+    font-size: 15px !important;
+}
+
+h1, h2, h3 {
+    letter-spacing: 0.5px;
+}
+"""
+
+
+
+
+
+
 # 🔁 Global state
 current_state = {}
 
@@ -157,7 +189,7 @@ import os
 
 def load_logs():
 
-    base_path = os.path.dirname(os.path.dirname(__file__))
+    base_path = os.path.dirname(__file__)
     log_path = os.path.join(base_path, "logs.json")
 
     try:
@@ -182,14 +214,20 @@ def load_logs():
 
 
 
-def open_login():
-    webbrowser.open("http://localhost:5000/login")
-    return "🔐 Opening Auth0 login..."
+
 
 # ==============================
 # 🎨 UI (CLEAN + STRUCTURED)
 # ==============================
-with gr.Blocks(theme=gr.themes.Soft()) as demo:
+with gr.Blocks(
+    theme=gr.themes.Base(
+        primary_hue="blue",
+        secondary_hue="indigo",
+        neutral_hue="slate",
+        radius_size="lg",
+    ),
+    css=custom_css
+) as demo:
 
     gr.Markdown("# 🚀 OpsPilot AI Dashboard")
 
@@ -197,9 +235,24 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     # 📧 EMAIL SECTION
     # ------------------------------
     gr.Markdown("## 📧 Email Analysis")
-    login_btn = gr.Button("🔐 Login with Auth0")
+    login_html = gr.HTML("""
+<a href="http://localhost:5000/login" target="_blank">
+    <button style="
+        width: 100%;
+        padding: 12px;
+        font-size: 16px;
+        border-radius: 10px;
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        cursor: pointer;
+    ">
+        🔐 Login with Auth0
+    </button>
+</a>
+""")
 
-    fetch_btn = gr.Button("Fetch & Analyze Email")
+    fetch_btn = gr.Button("Fetch & Analyze Email", elem_classes="loading-btn")
 
     email_box = gr.Textbox(label="Email Content", lines=5)
     decision_box = gr.Textbox(label="Decision")
@@ -270,10 +323,10 @@ with gr.Blocks(theme=gr.themes.Soft()) as demo:
     )
 
     log_btn.click(load_logs, outputs=log_box)
-    login_btn.click(fn=open_login, outputs=result_box)
+    
 
 
 # ==============================
 # 🚀 LAUNCH
 # ==============================
-demo.launch()
+demo.launch(server_name="0.0.0.0", server_port=7860)

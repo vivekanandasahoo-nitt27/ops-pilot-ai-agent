@@ -6,3 +6,23 @@ __pycache__/
 *.pyd
 .idea/
 .vscode/
+
+.mp3 
+.pdf
+
+
+# 📄 Logs & runtime files
+logs.json
+*.log
+
+# 📊 Generated reports
+*.pdf
+
+# 🔊 Audio files (ElevenLabs / voice)
+*.mp3
+*.wav
+
+# 🖼️ Temporary / media
+*.png
+*.jpg
+*.jpeg

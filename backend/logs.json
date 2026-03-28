@@ -103,5 +103,19 @@
     "decision": "ALERT",
     "action": "Slack alert + email reply sent",
     "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 20:40:28.851811",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in class please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Action rejected by human",
+    "system": "email-system"
+  },
+  {
+    "timestamp": "2026-03-27 20:43:07.287135",
+    "message": "\nSubject: Meeting\nBody: Tomorrow meeting with client aman at 11 30 am in class please be on time\n",
+    "decision": "HUMAN_REQUIRED",
+    "action": "Human approved and smart email sent",
+    "system": "email-system"
   }
 ]

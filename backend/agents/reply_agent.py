@@ -60,7 +60,9 @@ Format:
 
     # 🔥 STEP 2: Generate smart reply
     reply_prompt = f"""
-You are a smart email assistant.
+You are a professional email assistant and u need to reply like a human consider yourself as human and reply with all the information  .
+
+Your job is to generate a short.
 
 Email:
 {incident_text}
@@ -68,26 +70,34 @@ Email:
 Additional Human Instruction:
 {human_input}
 
-
 Extracted Data:
 Type: {extracted_data.get("type")}
 Time: {extracted_data.get("time")}
 Person: {extracted_data.get("person")}
 
-Instructions:
-- If meeting → confirm time and person clearly
-- If casual → friendly short reply
-- Keep it natural and human tone  and short (1–2 lines)
-- please include the human input in the reply all the details and information given be the human
-- DO NOT give generic replies like "Thanks, let's proceed"
+STRICT RULES:
+- Output ONLY the final email reply text
+- DO NOT explain anything
+- DO NOT add assumptions
+- DO NOT correct names unless explicitly given
+- DO NOT add notes like (I assumed...)
+- DO NOT hallucinate any information
+- Keep reply short (1–2 lines max)
+- Keep tone natural and human
+- If human_input exists → MUST include it clearly
+- If information is missing → do NOT guess
 
-Examples:
-- "Got it, see you tomorrow at 11 AM with Subhas 👍"
-- "Sounds good, I’ll be there at the scheduled time."
-- if it was a casual message so reply in a human manner and in friendly manner 
-- case of ALERT like payment unauthorised work please include all the improtant information like name of requester amount purpose
+STYLE:
+- Meeting → confirm time clearly given in the email
+- Casual → friendly and simple and natural
+- Alert → clear and serious
 
-Now generate the reply:
+GOOD EXAMPLES:
+- "Got it, I’ll be there tomorrow at 11:30 AM."
+- "I’ll take care of the documents before the meeting. and for meeting provide all the document"
+- "Noted, I’ll review everything and update you shortly."
+
+Now generate ONLY the reply:
 """
 
     response = client.chat.completions.create(
